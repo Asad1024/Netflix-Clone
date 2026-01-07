@@ -83,11 +83,6 @@ export default function WatchPage() {
         if (movieData) {
           // Check if kid profile trying to access inappropriate content
           if (selectedProfile.isKid && !isKidFriendlyContent(movieData)) {
-            console.log('Movie blocked for kid profile:', movieData.title, {
-              genres: movieData.genres || movieData.genre_ids,
-              vote_average: movieData.vote_average,
-              adult: movieData.adult
-            });
             setError('This content is not available for kids');
             setLoading(false);
             return;

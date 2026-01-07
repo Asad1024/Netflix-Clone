@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Header from '@/components/Header';
 import MovieCard from '@/components/MovieCard';
@@ -16,7 +16,7 @@ interface Profile {
   isKid: boolean;
 }
 
-export default function SearchPage() {
+function SearchPageContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const query = searchParams.get('q') || '';
@@ -167,5 +167,17 @@ export default function SearchPage() {
         }}
       />
     </div>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="w-16 h-16 border-4 border-t-red-600 border-r-red-600 border-b-red-600 border-l-transparent rounded-full animate-spin"></div>
+      </div>
+    }>
+      <SearchPageContent />
+    </Suspense>
   );
 }
